@@ -1,120 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Authenticator } from "@aws-amplify/ui-react";
-import { Amplify } from "aws-amplify"; // Corrected import
-import { fetchUserAttributes } from "aws-amplify/auth"; // Corrected import
-import awsmobile from "../src/aws-exports";
-import { useRouter } from "next/navigation";
-import { fetchAuthSession } from "aws-amplify/auth";
-
-//console.log("✅ Page.tsx is loading...");
-
-Amplify.configure(awsmobile); // Configure Amplify
-
-export default function Home() {
-  const [role, setRole] = useState<string | null>(null);
-  const router = useRouter();
-
-  //console.log("🏗 Home component is rendering...");
-
-  useEffect(() => {
-    console.log("useEffect is running...");
-
-    const loadUserGroups = async () => {
-      try {
-        console.log("Fetching user attributes...");
-        const attributes = await fetchUserAttributes();
-        console.log("User attributes:", attributes);
-
-        // Fetch authentication session
-        const session = await fetchAuthSession();
-        const idToken = session.tokens?.idToken;
-        const groups = idToken?.payload["cognito:groups"];
-
-        console.log("Raw user groups:", groups);
-
-        // Ensure groups is always an array and convert only valid strings to lowercase
-        const userGroups = Array.isArray(groups)
-          ? groups
-              .filter((group) => typeof group === "string") // Ensure all elements are strings
-              .map((group) => (group as string).toLowerCase())
-          : typeof groups === "string"
-            ? [groups.toLowerCase()]
-            : [];
-
-        console.log("Processed user groups:", userGroups);
-
-        // Determine role based on groups
-        if (userGroups.includes("admin")) {
-          setRole("admin");
-        } else if (userGroups.includes("client")) {
-          setRole("client");
-        } else if (userGroups.includes("counselor")) {
-          setRole("counselor");
-        } else {
-          console.warn("⚠️ User does not belong to a recognized group.");
-          setRole(null);
-        }
-      } catch (error) {
-        console.error("Error fetching user groups:", error);
-      }
-    };
-
-    loadUserGroups();
-  }, []);
-
-  useEffect(() => {
-    console.log("🔄 Redirect useEffect running...");
-    console.log("Current role:", role);
-    if (role) {
-      switch (role) {
-        case "admin":
-          router.push("/admin/user-management");
-          break;
-        case "client":
-          router.push("/client/wizard");
-          break;
-        case "counselor":
-          router.push("/counselor/my-clients");
-          break;
-        default:
-          break;
-      }
-    }
-  }, [role, router]);
-
-  console.log("✅ Component is rendering!"); // Should log if component mounts
-
-  return (
-    <Authenticator>
-      {({ signOut, user }) => (
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-          <header className="w-full flex justify-between p-4">
-            <p>Welcome, {user?.username}</p>
-            <button
-              onClick={signOut}
-              className="bg-red-500 text-white px-4 py-2 rounded"
-            >
-              Sign out
-            </button>
-          </header>
-
-          <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-            <h1>Loading your dashboard... hey</h1>
-          </main>
-        </div>
-      )}
-    </Authenticator>
-  );
-}
-
-/*
-"use client";
 import Image from "next/image";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
-import awsmobile from "../src/aws-exports";
+import awsmobile from "@/src/aws-exports";
 
 Amplify.configure(awsmobile);
 
@@ -142,7 +30,7 @@ export default function Home() {
               height={38}
               priority
             />
-            <h1>This is the DEFAULT homepage.</h1>
+            <h1>This is the ADMIN homepage.</h1>
             <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
               <li className="mb-2 tracking-[-.01em]">
                 Get started by editing{" "}
@@ -235,4 +123,3 @@ export default function Home() {
     </Authenticator>
   );
 }
-*/
