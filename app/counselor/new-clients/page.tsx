@@ -83,6 +83,27 @@ export default function MyClients() {
               These applicants have reached the threshold confidence score in
               their essays and are ready to meet with a counselor.
             </p>
+            <div className="flex justify-center space-x-6 pt-10">
+              {clients.map((client) => (
+                <div
+                  key={client.id}
+                  className="bg-white p-6 rounded-lg shadow-lg w-64 text-center"
+                >
+                  <img
+                    src={client.image}
+                    alt={client.name}
+                    className="w-24 h-24 mx-auto rounded-full mb-4"
+                  />
+                  <h2 className="text-lg font-semibold">{client.name}</h2>
+                  <p className="text-sm text-gray-600">{client.email}</p>
+                  <p className="text-sm text-gray-600">{client.phone}</p>
+                  <p className="text-sm text-gray-600">{client.location}</p>
+                  <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full">
+                    Take this Client
+                  </button>
+                </div>
+              ))}
+            </div>
           </main>
         </div>
       )}

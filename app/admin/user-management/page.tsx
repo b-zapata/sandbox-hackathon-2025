@@ -30,7 +30,10 @@ export default function Home() {
               height={38}
               priority
             />
-            <h1>This is the ADMIN homepage.</h1>
+            <h1>
+              This is the ADMIN homepage. This is where the admin will be able
+              to change user roles for a specific user and delete users as well.
+            </h1>
             <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
               <li className="mb-2 tracking-[-.01em]">
                 Get started by editing{" "}

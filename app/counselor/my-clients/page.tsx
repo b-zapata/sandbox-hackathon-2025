@@ -112,12 +112,21 @@ export default function MyClients() {
                   <p className="text-sm text-gray-600">{client.email}</p>
                   <p className="text-sm text-gray-600">{client.phone}</p>
                   <p className="text-sm text-gray-600">{client.location}</p>
-                  <button className="bg-green-500 text-white px-4 py-2 rounded mt-4 w-full">
-                    Mark as Completed
-                  </button>
-                  <button className="bg-red-500 text-white px-4 py-2 rounded mt-2 w-full">
-                    Drop
-                  </button>
+
+                  {activeTab === "Current" ? (
+                    <>
+                      <button className="bg-green-500 text-white px-4 py-2 rounded mt-4 w-full">
+                        Mark as Completed
+                      </button>
+                      <button className="bg-red-500 text-white px-4 py-2 rounded mt-2 w-full">
+                        Drop
+                      </button>
+                    </>
+                  ) : (
+                    <button className="bg-red-500 text-white px-4 py-2 rounded mt-4 w-full">
+                      Delete Record
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
