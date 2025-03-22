@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-sandboxhackathon2025-dev-e4bce-authRole",
+      "UnauthRoleArn": "arn:aws:iam::339712963825:role/amplify-sandboxhackathon2025-dev-e4bce-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::339712963825:role/amplify-sandboxhackathon2025-dev-e4bce-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-sandboxhackathon2025-dev-e4bce-deployment",
+      "UnauthRoleName": "amplify-sandboxhackathon2025-dev-e4bce-unauthRole",
+      "StackName": "amplify-sandboxhackathon2025-dev-e4bce",
+      "StackId": "arn:aws:cloudformation:us-east-1:339712963825:stack/amplify-sandboxhackathon2025-dev-e4bce/d5ccb470-06c2-11f0-9dca-0afffff6629d",
+      "AmplifyAppId": "df43w24axdnrl"
+    },
+    "categories": {
+      "auth": {
+        "sandboxhackathon202580df7358": {}
+      }
+    }
+  }
+}
